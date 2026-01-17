@@ -1,0 +1,31 @@
+{
+  "generalConfiguration.sortOnBeforeSave": true,
+  "importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimitExceptIfOnlyOne",
+  "importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 100,
+  "importStringConfiguration.tabSize": 2,
+  "importSorter.importStringConfiguration.trailingComma": "multiline",
+  "importSorter.importStringConfiguration.hasSemicolon": false,
+  "sortConfiguration.customOrderingRules.rules": [
+    {
+      "regex": "^(\\.\\/|\\.\\.\\/)",
+      "orderLevel": 20
+    },
+    {
+      "regex": "@/(?!.*\\.(css|scss)$).*",
+      "orderLevel": 30
+    },
+    {
+      "regex": "^~/(?!.*\\.(css|scss)$).*",
+      "orderLevel": 40
+    },
+    {
+      "regex": "^.*\\.(css|scss)$",
+      "orderLevel": 50,
+      "disableSort": true
+    },
+    {
+      "regex": "^(?!(?:@/|~/|\\.\\/|\\.\\.\\/)).*",
+      "orderLevel": 10
+    }
+  ]
+}
