@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 
 export class Redirecter {
+  // TODO: deprecate
   static allowedRedirectURL = (raw: string): boolean => {
     try {
       const url = new URL(raw)

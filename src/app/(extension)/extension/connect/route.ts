@@ -7,17 +7,7 @@ export async function GET(request: NextRequest) {
   const url = new URL(request.url)
 
   const deviceId = url.searchParams.get('device_id') ?? '';
-  const redirectURL = url.searchParams.get('redirect_url')
   const state = url.searchParams.get('state')
-
-  if (!redirectURL) {
-    return NextResponse.json({ error: 'Missing redirect_url' }, { status: 400 })
-  }
-
-  // TODO: need to redirect after sign in back to this route with the code
-  if (!Redirecter.allowedRedirectURL(redirectURL)) {
-    return NextResponse.json({ error: 'Invalid redirect_url' }, { status: 400 })
-  }
 
   const { userId, getToken } = await auth()
 
@@ -55,12 +45,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'anchor-api did not return code' }, { status: 500 })
   }
 
-  const redirect = new URL(redirectURL)
+  const redirect = new URL('/extension/callback', url.origin)
 
   redirect.searchParams.set('code', data.code)
 
-  if (data.expiresIn) redirect.searchParams.set('expiresIn', data.expiresIn.toString())
-  
+  if (data.expiresIn) {
+    redirect.searchParams.set('expiresIn', data.expiresIn.toString())
+  }
+
   // Preserve state parameter for CSRF validation
   if (state) redirect.searchParams.set('state', state)
 
