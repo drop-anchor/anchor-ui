@@ -10,9 +10,41 @@ import { ResearchQuoteSection } from '@/components/sections/ResearchQuoteSection
 // TODO: replace with your extension URL
 const CHROME_WEB_STORE_URL = 'https://chromewebstore.google.com/'
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dropanchor.ai'
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Anchor',
+  applicationCategory: 'BrowserExtension',
+  operatingSystem: 'Chrome',
+  description: 'Anchor saves the context you\'re afraid of losing. A free Chrome extension that lets you close tabs without losing important thoughts, quotes, or details.',
+  url: baseUrl,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    ratingCount: '1',
+  },
+  featureList: [
+    'Save context from web pages',
+    'Close tabs without losing information',
+    'Free Chrome extension',
+    'No dashboards required',
+  ],
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {/* calm background wash */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute left-1/2 top-[-320px] h-[720px] w-[900px] max-w-[100vw] -translate-x-1/2 rounded-full bg-muted/50 blur-3xl" />

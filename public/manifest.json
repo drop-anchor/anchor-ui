@@ -1,0 +1,36 @@
+{
+  "name": "Anchor - Save the thought. Close the tab.",
+  "short_name": "Anchor",
+  "description": "Anchor saves the context you're afraid of losing. A free Chrome extension that lets you close tabs without losing important thoughts, quotes, or details.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/icon/16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon/32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon/48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon/96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon/128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
+}
