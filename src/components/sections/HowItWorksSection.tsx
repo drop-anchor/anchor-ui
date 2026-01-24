@@ -1,8 +1,10 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { StepCard } from '@/components/shared/StepCard'
+import { Anchor, Heart, Highlighter } from 'lucide-react'
+
 import { Section } from '@/components/shared/Section'
+import { StepCard } from '@/components/shared/StepCard'
+import { Button } from '@/components/ui/button'
 
 export function HowItWorksSection({ chromeWebStoreUrl }: { chromeWebStoreUrl: string }) {
   return (
@@ -20,16 +22,19 @@ export function HowItWorksSection({ chromeWebStoreUrl }: { chromeWebStoreUrl: st
             number="01"
             title="Highlight"
             body="Mark the exact line you don&apos;t want to lose."
+            icon={<Highlighter size={16} />}
           />
           <StepCard
             number="02"
             title="Drop Anchor"
             body="Save the context with one click."
+            icon={<Anchor size={16} />}
           />
           <StepCard
             number="03"
             title="Close the tab"
             body="Let your browser breathe again."
+            icon={<Heart size={16} />}
           />
         </div>
 

@@ -1,10 +1,10 @@
 import Link from 'next/link'
 
-import { HowItWorksSection } from '@/components/sections/HowItWorksSection'
+import { BridgeLineSection } from '@/components/sections/BridgeLineSection'
 import { FinalCTASection } from '@/components/sections/FinalCTASection'
 import { HeroSection } from '@/components/sections/HeroSection'
+import { HowItWorksSection } from '@/components/sections/HowItWorksSection'
 import { ProblemReliefSection } from '@/components/sections/ProblemReliefSection'
-import { BridgeLineSection } from '@/components/sections/BridgeLineSection'
 import { ResearchQuoteSection } from '@/components/sections/ResearchQuoteSection'
 
 // TODO: replace with your extension URL
@@ -47,9 +47,9 @@ export default function Home() {
       />
       {/* calm background wash */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-1/2 top-[-320px] h-[720px] w-[900px] max-w-[100vw] -translate-x-1/2 rounded-full bg-muted/50 blur-3xl" />
-        <div className="absolute right-[-220px] top-[120px] h-[520px] w-[520px] max-w-[100vw] rounded-full bg-muted/40 blur-3xl" />
-        <div className="absolute bottom-[-300px] left-[-260px] h-[640px] w-[640px] max-w-[100vw] rounded-full bg-muted/30 blur-3xl" />
+        <div className="absolute left-1/2 top-[-320px] h-[720px] w-[900px] max-w-[100vw] -translate-x-1/2 rounded-full bg-background/50 blur-3xl" />
+        <div className="absolute right-[-220px] top-[120px] h-[520px] w-[520px] max-w-[100vw] rounded-full bg-background/40 blur-3xl" />
+        <div className="absolute bottom-[-300px] left-[-260px] h-[640px] w-[640px] max-w-[100vw] rounded-full bg-background/30 blur-3xl" />
       </div>
 
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">

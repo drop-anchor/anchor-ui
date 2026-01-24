@@ -35,18 +35,18 @@ export function BrowserDemo() {
       <motion.div
         style={{ x: blobX, y: blobY }}
         aria-hidden
-        className="pointer-events-none absolute -inset-8 -z-10 rounded-[36px] bg-muted/45 blur-3xl overflow-hidden"
+        className="pointer-events-none absolute -inset-8 -z-10 rounded-[36px] bg-[hsl(48_33%_98%)] blur-3xl overflow-hidden"
       />
 
       {/* "window" */}
       <motion.div
-        className="relative overflow-hidden rounded-[28px] border bg-background/70 shadow-sm backdrop-blur"
+        className="relative overflow-hidden rounded-[28px] border bg-[hsl(48_33%_98%)] shadow-sm backdrop-blur"
         initial={{ opacity: 0, y: reduce ? 0 : 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: easeOut() }}
       >
         {/* top chrome */}
-        <div className="flex items-center gap-2 border-b px-4 py-3">
+        <div className="flex items-center gap-2 border-b px-4 py-3 bg-[hsl(48_33%_98%)]">
           <div className="flex items-center gap-1.5">
             <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#FF5F57' }} />
             <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#FFBD2E' }} />
@@ -61,26 +61,26 @@ export function BrowserDemo() {
 
         {/* content area with looping sequence */}
         <motion.div
-          className="relative p-7 sm:p-8"
+          className="relative bg-[hsl(48_33%_98%)] p-7 sm:p-8"
           // loop: 0s → 4.8s + delay, then repeat
           animate={
             reduce
               ? undefined
               : {
-                  opacity: [1, 1, 1, 0.94, 1],
-                  scale: [1, 1, 1, 0.985, 1],
-                }
+                opacity: [1, 1, 1, 0.94, 1],
+                scale: [1, 1, 1, 0.985, 1],
+              }
           }
           transition={
             reduce
               ? undefined
               : {
-                  duration: 6.2,
-                  times: [0, 0.4, 0.62, 0.78, 1],
-                  repeat: Infinity,
-                  repeatDelay: 1.4,
-                  ease: 'easeInOut',
-                }
+                duration: 6.2,
+                times: [0, 0.4, 0.62, 0.78, 1],
+                repeat: Infinity,
+                repeatDelay: 1.4,
+                ease: 'easeInOut',
+              }
           }
         >
           <div className="space-y-4 text-sm leading-relaxed text-foreground/90">
@@ -144,21 +144,21 @@ function SavedToast({ reduce }: { reduce: boolean }) {
         reduce
           ? { opacity: 1, y: 0, filter: "blur(0px)" }
           : {
-              opacity: [0, 0, 1, 1, 0],
-              y: [6, 6, 0, 0, 6],
-              filter: ["blur(6px)", "blur(6px)", "blur(0px)", "blur(0px)", "blur(6px)"],
-            }
+            opacity: [0, 0, 1, 1, 0],
+            y: [6, 6, 0, 0, 6],
+            filter: ["blur(6px)", "blur(6px)", "blur(0px)", "blur(0px)", "blur(6px)"],
+          }
       }
       transition={
         reduce
           ? { duration: 0.3 }
           : {
-              duration: 6.2,
-              times: [0, 0.28, 0.36, 0.72, 1],
-              repeat: Infinity,
-              repeatDelay: 1.4,
-              ease: easeOut(),
-            }
+            duration: 6.2,
+            times: [0, 0.28, 0.36, 0.72, 1],
+            repeat: Infinity,
+            repeatDelay: 1.4,
+            ease: easeOut(),
+          }
       }
     >
       <div className="flex items-center gap-2">
