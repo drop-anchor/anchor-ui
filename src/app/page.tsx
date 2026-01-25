@@ -79,8 +79,11 @@ export default function Home() {
 
       <footer className="mx-auto max-w-6xl px-6 pb-10 pt-6">
         <div className="flex flex-col gap-2 border-t pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 Anchor</p>
-          <p>Save the thought. Close the tab.</p>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2">
+            <p>© 2026 Anchor</p>
+            <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
+          </div>
+          <p className="text-right">Save the thought. Close the tab.</p>
         </div>
       </footer>
     </main>
