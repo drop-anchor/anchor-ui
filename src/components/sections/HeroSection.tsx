@@ -2,8 +2,8 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 
-import { Button } from '@/components/ui/button'
 import { BrowserDemo } from '@/components/sections/BrowserDemo'
+import { Button } from '@/components/ui/button'
 
 export function HeroSection({ chromeWebStoreUrl }: { chromeWebStoreUrl: string }) {
   const reduce = useReducedMotion();
@@ -38,13 +38,13 @@ export function HeroSection({ chromeWebStoreUrl }: { chromeWebStoreUrl: string }
             variants={item}
             className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
           >
-            Anchor saves the context you&apos;re afraid of losing.
+            Anchor saves the context behind what you are reading so you can close the tab and come back to your thinking later.
           </motion.p>
 
           <motion.div variants={item} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button asChild size="lg" className="cursor-pointer text-primary-foreground bg-emerald-400 hover:bg-emerald-500">
               <a href={chromeWebStoreUrl} target="_blank" rel="noreferrer">
-                Install for Chrome
+                Try Anchor for free
               </a>
             </Button>
 

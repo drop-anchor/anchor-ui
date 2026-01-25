@@ -1,6 +1,7 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
+
 import { Separator } from '@/components/ui/separator'
 
 const easeOut = [0.21, 0.47, 0.32, 0.98] as const
@@ -26,7 +27,7 @@ export function BridgeLineSection() {
         <div className="relative flex items-center justify-center gap-4">
           <Separator className="hidden sm:flex flex-1" />
           <h2 className="text-center leading-relaxed text-muted-foreground sm:whitespace-nowrap">
-          Many tabs are not about work, they are about memory.
+            Open tabs are unfinished thoughts waiting for later
           </h2>
           <Separator className="hidden sm:flex flex-1" />
         </div>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { AIAsMemorySection } from '@/components/sections/AIAsMemorySection'
 import { BridgeLineSection } from '@/components/sections/BridgeLineSection'
 import { FinalCTASection } from '@/components/sections/FinalCTASection'
 import { HeroSection } from '@/components/sections/HeroSection'
@@ -73,7 +74,8 @@ export default function Home() {
 
       <BridgeLineSection />
       <ProblemReliefSection />
-      <HowItWorksSection chromeWebStoreUrl={CHROME_WEB_STORE_URL} />
+      <HowItWorksSection />
+      <AIAsMemorySection chromeWebStoreUrl={CHROME_WEB_STORE_URL} />
       <ResearchQuoteSection />
       <FinalCTASection chromeWebStoreUrl={CHROME_WEB_STORE_URL} />
 

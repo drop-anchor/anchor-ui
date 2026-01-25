@@ -1,7 +1,7 @@
 'use client'
 
-import { useReducedMotion } from 'framer-motion'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
+
 import { Section } from '@/components/shared/Section'
 import { Button } from '@/components/ui/button'
 
@@ -30,7 +30,7 @@ export function FinalCTASection({ chromeWebStoreUrl }: { chromeWebStoreUrl: stri
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button asChild size="lg" className="cursor-pointer text-primary-foreground bg-emerald-400 hover:bg-emerald-500">
               <a href={chromeWebStoreUrl} target="_blank" rel="noreferrer">
-                Install Anchor for Chrome
+                Try Anchor for free
               </a>
             </Button>
             <p className="text-xs text-muted-foreground">

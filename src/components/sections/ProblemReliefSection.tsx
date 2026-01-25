@@ -10,7 +10,7 @@ export function ProblemReliefSection() {
             Tabs stay open &quot;just in case.&quot;
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            We keep pages around because we&apos;re afraid we&apos;ll lose something. A thought. A quote. A detail we&apos;ll need later.
+            We keep pages around because we&apos;re afraid we&apos;ll lose something. A thought. A quote. A connection we&apos;ll need later.
           </p>
         </div>
 
@@ -20,7 +20,7 @@ export function ProblemReliefSection() {
             Anchor lets you let go.
           </h3>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Highlight what matters. Drop Anchor. Close the tab knowing the context is saved.
+            Drop an anchor to save why the page mattered to you. Anchor keeps the idea, not just the link, so you can move on without losing your place.
           </p>
         </div>
       </div>
