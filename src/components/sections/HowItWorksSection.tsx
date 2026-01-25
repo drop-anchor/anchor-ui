@@ -27,7 +27,7 @@ export function HowItWorksSection({ chromeWebStoreUrl }: { chromeWebStoreUrl: st
           <StepCard
             number="02"
             title="Drop Anchor"
-            body="Save the context with one click."
+            body="Save the context instantly."
             icon={<Anchor size={16} />}
           />
           <StepCard

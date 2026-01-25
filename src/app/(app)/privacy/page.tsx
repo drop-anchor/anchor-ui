@@ -5,7 +5,6 @@ import { Separator } from '@/components/ui/separator'
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {/* calm background wash - same as home page */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute left-1/2 top-[-320px] h-[720px] w-[900px] max-w-[100vw] -translate-x-1/2 rounded-full bg-background/50 blur-3xl" />
         <div className="absolute right-[-220px] top-[120px] h-[520px] w-[520px] max-w-[100vw] rounded-full bg-background/40 blur-3xl" />
@@ -229,19 +228,6 @@ export default function PrivacyPage() {
               <p className="text-muted-foreground">
                 We may update this Privacy Policy from time to time. When we do, we will update
                 the &quot;Last updated&quot; date at the top of this page.
-              </p>
-            </section>
-
-            <Separator />
-
-            <section className="space-y-4">
-              <h2 className="text-2xl font-semibold tracking-tight">Contact</h2>
-              <p className="text-muted-foreground">
-                If you have questions about this Privacy Policy or Anchor&apos;s data practices, you can
-                contact us at:
-              </p>
-              <p className="text-muted-foreground">
-                Email: <a href="mailto:support@dropanchor.ai" className="text-foreground hover:underline">support@dropanchor.ai</a>
               </p>
             </section>
           </div>
