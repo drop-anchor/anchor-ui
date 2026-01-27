@@ -8,8 +8,7 @@ import { HowItWorksSection } from '@/components/sections/HowItWorksSection'
 import { ProblemReliefSection } from '@/components/sections/ProblemReliefSection'
 import { ResearchQuoteSection } from '@/components/sections/ResearchQuoteSection'
 
-// TODO: replace with your extension URL
-const CHROME_WEB_STORE_URL = 'https://chromewebstore.google.com/'
+const CHROME_WEB_STORE_URL = 'https://chromewebstore.google.com/detail/anchor/igdnlkcbffbmflojplbjjfkjofejkapj'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dropanchor.ai'
 
@@ -71,7 +70,6 @@ export default function Home() {
       </header>
 
       <HeroSection chromeWebStoreUrl={CHROME_WEB_STORE_URL} />
-
       <BridgeLineSection />
       <ProblemReliefSection />
       <HowItWorksSection />
