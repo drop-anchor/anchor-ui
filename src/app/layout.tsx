@@ -1,3 +1,4 @@
+import { ClerkProvider } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
 
 import type { Metadata } from 'next'
@@ -96,9 +97,11 @@ export default function RootLayout({ children }: Readonly<{children: React.React
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}>
-        <main>
-          {children}
-        </main>
+        <ClerkProvider>
+          <main>
+            {children}
+          </main>
+        </ClerkProvider>
       </body>
     </html>
   )

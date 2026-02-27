@@ -1,12 +1,28 @@
 import { auth } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from 'next/server'
+
 import { AnchorAuthCodeResponse } from '@/types/auth'
+
+const isValidExtensionOrigin = (value: string | null): value is string =>
+  typeof value === 'string' &&
+  value.startsWith('chrome-extension://') &&
+  value.length <= 200
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url)
+  const requestId = crypto.randomUUID().slice(0, 8)
 
-  const deviceId = url.searchParams.get('device_id') ?? '';
-  const state = url.searchParams.get('state') ?? '';
+  const deviceId = url.searchParams.get('device_id') ?? ''
+  const state = url.searchParams.get('state') ?? ''
+  const extOriginParam = url.searchParams.get('ext_origin')
+  const extOrigin = isValidExtensionOrigin(extOriginParam) ? extOriginParam : null
+
+  console.info('[extension/connect] incoming', {
+    requestId,
+    hasDeviceId: Boolean(deviceId),
+    hasState: Boolean(state),
+    hasExtOrigin: Boolean(extOrigin),
+  })
 
   const { userId, getToken } = await auth()
 
@@ -28,7 +44,28 @@ export async function GET(request: NextRequest) {
   /**
    * NOTE: user is now authenticated, proceed with anchor authentication
    */
-  const jwt = await getToken();
+  const tokenTemplate = process.env.CLERK_AUTH_TOKEN_TEMPLATE?.trim()
+  let jwt: string | null = null
+
+  if (tokenTemplate) {
+    try {
+      jwt = await getToken({ template: tokenTemplate })
+    } catch (error) {
+      console.warn('[extension/connect] template token request failed, falling back to default token', {
+        requestId,
+        tokenTemplate,
+        error: error instanceof Error ? error.message : String(error),
+      })
+    }
+  }
+
+  if (!jwt) {
+    console.warn('[extension/connect] template token unavailable, falling back to default session token', {
+      requestId,
+      tokenTemplate: tokenTemplate ?? null,
+    })
+    jwt = await getToken()
+  }
 
   if (!jwt) {
     return NextResponse.json({ error: 'Failed to obtain Clerk session token' }, { status: 500 })
@@ -49,6 +86,11 @@ export async function GET(request: NextRequest) {
 
   if (!response.ok) {
     const message = await response.text().catch(() => '')
+    console.error('[extension/connect] /auth/code failed', {
+      requestId,
+      status: response.status,
+      responseText: message,
+    })
     return NextResponse.json({ error: `auth code failed: ${message || response.status}` }, { status: 500 })
   }
 
@@ -62,6 +104,9 @@ export async function GET(request: NextRequest) {
 
   redirect.searchParams.set('code', data.code)
   redirect.searchParams.set('state', state)
+  if (extOrigin) {
+    redirect.searchParams.set('ext_origin', extOrigin)
+  }
 
   return NextResponse.redirect(redirect.toString(), 302)
 }

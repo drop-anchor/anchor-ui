@@ -1,18 +1,30 @@
 import type { Metadata } from 'next'
 
+import { ExtensionCallbackClient } from './ExtensionCallbackClient'
+
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
-};
+}
 
-export default function ExtensionCallbackPage() {
+type ExtensionCallbackPageProps = {
+  searchParams: Promise<{
+    code?: string | string[]
+    state?: string | string[]
+    ext_origin?: string | string[]
+  }>
+}
+
+const first = (value: string | string[] | undefined): string | undefined =>
+  Array.isArray(value) ? value[0] : value
+
+export default async function ExtensionCallbackPage({ searchParams }: ExtensionCallbackPageProps) {
+  const resolvedSearchParams = await searchParams
+
   return (
-    <main className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-sm w-full rounded-2xl border p-6 shadow-sm">
-        <div className="text-xl font-semibold">You’re connected</div>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Return to Anchor in your browser. You can close this tab.
-        </p>
-      </div>
-    </main>
-  );
+    <ExtensionCallbackClient
+      code={first(resolvedSearchParams.code)}
+      state={first(resolvedSearchParams.state)}
+      extOrigin={first(resolvedSearchParams.ext_origin)}
+    />
+  )
 }
