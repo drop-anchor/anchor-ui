@@ -17,13 +17,6 @@ export async function GET(request: NextRequest) {
   const extOriginParam = url.searchParams.get('ext_origin')
   const extOrigin = isValidExtensionOrigin(extOriginParam) ? extOriginParam : null
 
-  console.info('[extension/connect] incoming', {
-    requestId,
-    hasDeviceId: Boolean(deviceId),
-    hasState: Boolean(state),
-    hasExtOrigin: Boolean(extOrigin),
-  })
-
   const { userId, getToken } = await auth()
 
   /**
@@ -50,20 +43,12 @@ export async function GET(request: NextRequest) {
   if (tokenTemplate) {
     try {
       jwt = await getToken({ template: tokenTemplate })
-    } catch (error) {
-      console.warn('[extension/connect] template token request failed, falling back to default token', {
-        requestId,
-        tokenTemplate,
-        error: error instanceof Error ? error.message : String(error),
-      })
+    } catch {
+      // Fallback to default session token below.
     }
   }
 
   if (!jwt) {
-    console.warn('[extension/connect] template token unavailable, falling back to default session token', {
-      requestId,
-      tokenTemplate: tokenTemplate ?? null,
-    })
     jwt = await getToken()
   }
 
