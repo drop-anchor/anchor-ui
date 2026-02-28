@@ -1,14 +1,14 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { AlertCircle, LoaderCircle } from 'lucide-react'
+import { useEffect, useMemo } from 'react'
+
+import { StepCard } from '@/components/shared/StepCard'
 
 type CallbackStatus =
-  | 'posting'
-  | 'success'
+  | 'forwarding'
   | 'missing_params'
   | 'invalid_origin'
-  | 'opener_missing'
-  | 'post_failed'
 
 type ExtensionCallbackClientProps = {
   code?: string
@@ -28,42 +28,54 @@ export function ExtensionCallbackClient({
   state,
   extOrigin,
 }: ExtensionCallbackClientProps) {
-  const [status, setStatus] = useState<CallbackStatus>('posting')
-
-  useEffect(() => {
+  const status = useMemo<CallbackStatus>(() => {
     if (!code || !state) {
-      setStatus('missing_params')
-      return
+      return 'missing_params'
     }
 
     if (!isValidExtensionOrigin(extOrigin)) {
-      setStatus('invalid_origin')
+      return 'invalid_origin'
+    }
+
+    return 'forwarding'
+  }, [code, state, extOrigin])
+
+  useEffect(() => {
+    if (status !== 'forwarding') {
+      return
+    }
+
+    if (!code || !state || !extOrigin) {
       return
     }
 
     if (!window.opener || window.opener.closed) {
-      setStatus('opener_missing')
       return
     }
+
+    let closeTimer: number | undefined
 
     try {
       window.opener.postMessage(
         { type: AUTH_CALLBACK_MESSAGE_TYPE, code, state },
         extOrigin
       )
-      setStatus('success')
-      window.setTimeout(() => window.close(), 1200)
+      closeTimer = window.setTimeout(() => window.close(), 1200)
     } catch {
-      setStatus('post_failed')
+      // Keep fallback instructions visible if handoff fails.
     }
-  }, [code, state, extOrigin])
+
+    return () => {
+      if (closeTimer) {
+        window.clearTimeout(closeTimer)
+      }
+    }
+  }, [status, code, state, extOrigin])
 
   const title = useMemo(() => {
     switch (status) {
-      case 'success':
-        return 'You’re connected'
-      case 'posting':
-        return 'Finishing sign-in...'
+      case 'forwarding':
+        return 'Finishing sign-in'
       default:
         return 'Could not complete connection'
     }
@@ -71,28 +83,28 @@ export function ExtensionCallbackClient({
 
   const body = useMemo(() => {
     switch (status) {
-      case 'posting':
-        return 'Sending login result back to Anchor.'
-      case 'success':
-        return 'Return to Anchor in your browser. You can close this tab.'
+      case 'forwarding':
+        return 'Returning your login result to Anchor now. This tab closes automatically.'
       case 'missing_params':
         return 'Missing auth parameters. Return to Anchor and click Log in again.'
       case 'invalid_origin':
         return 'Invalid extension origin. Return to Anchor and retry Log in.'
-      case 'opener_missing':
-        return 'Anchor window was not found. Return to Anchor and retry Log in.'
-      case 'post_failed':
-        return 'Connection handoff failed. Return to Anchor and retry Log in.'
       default:
         return 'Return to Anchor and retry Log in.'
     }
   }, [status])
 
+  const icon = status === 'forwarding'
+    ? <LoaderCircle className="animate-spin" size={16} />
+    : <AlertCircle size={16} />
+
   return (
-    <main className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-sm w-full rounded-2xl border p-6 shadow-sm">
-        <div className="text-xl font-semibold">{title}</div>
-        <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+    <main className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,hsl(48_45%_95%),hsl(0_0%_100%))] p-6">
+      <div className="w-full max-w-md">
+        <StepCard number="Callback" title={title} body={body} icon={icon} />
+        <p className="mt-3 text-center text-xs text-muted-foreground">
+          If this page stays open, return to Anchor and retry Log in.
+        </p>
       </div>
     </main>
   )
